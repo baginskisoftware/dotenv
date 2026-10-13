@@ -52,4 +52,4 @@ jobs:
         run: bun run build
 
       - name: Publish package to npm
-        run: npm publish --provenance --access public
+        run: npm stage publish --access public
