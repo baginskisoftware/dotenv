@@ -8,5 +8,6 @@
   "paths": {
     "@core/*": ["./lib/core/*"],
     "@loader/*": ["./lib/loader/*"]
-  }
+  },
+  "ignore": ["dist/**"]
 }
