@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: Baginski Software DotEnv
+message: "If you use this software, please cite it as follows."
+type: software
+authors:
+  - given-names: Eduardo
+    family-names: Baginski Costa
+    email: baginskicosta@gmail.com
+    affiliation: Baginski Software
+    orcid: "https://orcid.org/0009-0004-8118-7168"
+  - name: Baginski Software
+    city: Palmeira
+    country: BR
+    post-code: "84130000"
+    region: PR
+    alias: Baginski
+    email: baginskicosta@gmail.com
+    website: "https://github.com/baginskisoftware"
+    orcid: "https://orcid.org/0009-0004-8118-7168"
+repository-code: "https://github.com/baginskisoftware/dotenv"
+url: "https://github.com/baginskisoftware/dotenv"
+license: BSD-3-Clause

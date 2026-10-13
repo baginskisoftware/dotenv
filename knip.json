@@ -1,0 +1,12 @@
+{
+  "$schema": "https://unpkg.com/knip@6.41.0/schema.json",
+  "tags": ["-lintignore"],
+  "project": ["./lib/**/*.ts"],
+  "entry": ["./lib/core/index.ts", "./lib/loader/index.ts"],
+  "treatConfigHintsAsErrors": true,
+  "treatTagHintsAsErrors": true,
+  "paths": {
+    "@core/*": ["./lib/core/*"],
+    "@loader/*": ["./lib/loader/*"]
+  }
+}

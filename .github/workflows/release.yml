@@ -1,0 +1,36 @@
+name: GitHub Release
+run-name: Release ${{ github.ref_name }}
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+
+concurrency:
+  cancel-in-progress: false
+  group: release-${{ github.ref }}
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          generate_release_notes: true
+          make_latest: true
+          fail_on_unmatched_files: true
+          token: ${{ github.token }}

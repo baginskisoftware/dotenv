@@ -1,0 +1,29 @@
+name: Release Orchestrator
+run-name: Release ${{ github.ref_name }}
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Create GitHub Release
+    uses: ./.github/workflows/release.yml
+    permissions:
+      contents: write
+
+  publish:
+    name: Publish Package to npm
+    needs:
+      - release
+    uses: ./.github/workflows/publish.yml
+    permissions:
+      contents: read
+      id-token: write

@@ -1,0 +1,87 @@
+{
+  "name": "@baginskisoftware/dotenv",
+  "description": "Type-safe environment variable validation for JavaScript runtimes.",
+  "homepage": "https://github.com/baginskisoftware/dotenv",
+  "version": "0.1.0",
+  "license": "BSD-3-Clause",
+  "author": {
+    "email": "baginskicosta@gmail.com",
+    "name": "Eduardo Baginski Costa",
+    "url": "https://github.com/baginskisoftware"
+  },
+  "funding": {
+    "type": "patreon",
+    "url": "https://patreon.com/baginskisoftware"
+  },
+  "bugs": {
+    "url": "https://github.com/baginskisoftware/dotenv/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baginskisoftware/dotenv.git"
+  },
+  "publishConfig": {
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "tag": "latest"
+  },
+  "keywords": [
+    "environment-variables",
+    "runtime-validation",
+    "configuration",
+    "compiler-time",
+    "env-variables",
+    "environment",
+    "validation",
+    "typescript",
+    "type-safe",
+    "schema",
+    "config",
+    "dotenv",
+    "node",
+    "deno",
+    "bun",
+    "env"
+  ],
+  "packageManager": "bun@1.4.2",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "LICENSE",
+    "README"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/core/index.d.ts",
+      "import": "./dist/esm/core.js",
+      "require": "./dist/cjs/core.cjs"
+    },
+    "./loader": {
+      "types": "./dist/types/loader/index.d.ts",
+      "import": "./dist/esm/loader.js",
+      "require": "./dist/cjs/loader.cjs"
+    }
+  },
+  "scripts": {
+    "check": "bun run typecheck && bun run check:lint && bun run knip",
+    "check:lint": "biome check .",
+    "typecheck": "tsc --noEmit",
+    "fix": "biome check --write .",
+    "knip": "knip",
+    "build": "NODE_ENV=production bun run scripts/release.ts",
+    "build:dev": "bun run scripts/release.ts",
+    "release": "bun run check && bun run build",
+    "prepublishOnly": "bun run release",
+    "publish:dry": "bunx npm publish --dry-run"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+    "@standard-schema/spec": "^1.1.0",
+    "@types/bun": "^1.4.3",
+    "@types/node": "^26.6.5",
+    "knip": "^6.41.0",
+    "typescript": "^7.0.2"
+  }
+}

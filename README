@@ -1,0 +1,193 @@
+Baginski Software DotEnv
+========================
+
+Type-safe environment variable validation for JavaScript runtimes.
+
+The library provides tools to define, load, and validate environment variables
+with TypeScript type inference and runtime validation.
+
+It consists of two modules:
+
+* core: Defines environment schemas, infers variables types, and controls
+  access to server, client, and shared variables.
+
+* loader: Loads and parses environment variables from .env files.
+
+The library is independent of specific validation libraries and JavaScript runtimes.
+It is designed to work with compatible validators and modern JavaScript environments.
+
+Quick Start
+-----------
+
+* Install with Bun: bun add @baginskisoftware/dotenv
+* Install with npm: npm install @baginskisoftware/dotenv
+* Source code: git@github:baginskisoftware/dotenv
+* Validation interoperability: https://standardschema.dev/
+
+Basic Usage
+-----------
+
+Define the environment schema and specify its source.
+
+The following example uses Zod to define validation schemas.
+Zod is optional; other compatible validation libraries can be used instead.
+
+
+# import { defineEnvironment } from "@baginskisoftware/dotenv";
+# import { loadEnvFirst } from "@baginskisoftware/dotenv/loader";
+# import z from "zod";
+#
+# export const Environment = defineEnvironment({
+#   runtimeEnv: loadEnvFirst([".env.local", ".env"]),
+#   server: {
+#     DATABASE_URL: z.url(),
+#     PORT: z.coerce.number().int().min(1025),
+#   },
+# })();
+
+The returned factorty processes and validates the environment when invoked.
+
+Environment Configuration
+-------------------------
+
+The "runtimeEnv" property defines the source of environment variables.
+It accepts an environment object or the result of a loader function.
+
+Use "process.env" when variables are already available in the runtime.
+
+# import { defineEnvironment } from "@baginskisoftware/dotenv";
+#
+# export const Environment = defineEnvironment({
+#   runtimeEnv: process.env,
+#   server: { ... },
+# });
+
+Use "loadEnv" to load variables from a specific file.
+
+# import { loadEnv } from "@baginskisoftware/dotenv/loader";
+# const runtimeEnv = loadEnv(".env.local");
+
+Use "loadEnvFirst" to select the first applicable source.
+
+# import { loadEnvFirst } from "@baginskisoftware/dotenv/loader";
+# const runtimeEnv = loadEnvFirst([".env.local", ".env"]);
+
+The resulting environment source can be passed to "defineEnvironment"
+through the "runtimeEnv" property.
+
+Environment Schemas
+-------------------
+
+The core module defines the environment variables required by an application.
+Schemas can separate variables into three categories:
+
+* server: Variables intended for server-side use.
+* client: Variables intended for client-side use.
+* shared: Variables accessible to both environments.
+
+The core module uses schema definitions to infer variable types and control
+access to declared environment variables.
+
+Validation is delegated to compatible validation libraries rather than being
+tied to a specific implementation.
+
+Validation Libraries
+--------------------
+
+The libraries is agnostic of validation libraries.
+
+Any validator compatible with the interfaces supported by "core" can be used to
+define environment schemas.
+
+Standard Schema provides a common interfaces for interoperability between
+validation libraries: https://standardschema.dev/
+
+Examples of compatible validation libraries include:
+
+* Valibot: https://valibot.dev/
+* ArkType: https://arktype.io/
+* Zod: https://zod.dev/
+
+Zod is used throughout this document for demonstration purposes only.
+It is not a required dependency of the library.
+
+Applications may use another compatible validator without changing the
+library's underlying architecture.
+
+Compatibility depends on the validator implementing the interface required by
+the version of the library being used.
+
+Environment Processing
+----------------------
+
+"defineEnvironment" returns a factory.
+Environment processing begins when the factory is invoked.
+
+This allows applications to control when environment processing occurs and avoid
+unnecessary work during module initialization.
+
+The factory supports complete and selective environment construction.
+
+# const FullEnvironment = BaseEnvironment();
+#
+# const FilteredEnvironment = BaseEnvironment([
+#   "DATABASE_URL",
+#   "PORT",
+# ]);
+
+Selective construction is useful when an application requires only a subset of
+its declared environment variables.
+
+Error Handling
+--------------
+
+The "core" module supports custom handlers for validation failures and invalid
+environment variable access.
+
+* onValidationError: Handles validation issues.
+* onInvalidAccess: Handles access to unavailable variables.
+
+These handlers allow applications to define their own error behavior without
+requiring a specific error-reporting implementation.
+
+Runtime Compatibility
+---------------------
+
+The library is designed for modern JavaScript runtimes.
+It does not require a specific runtime as its underlying platform.
+
+The available behavior depends on the environment source and the capabilities
+provided by the selected runtime.
+
+The "core" module handles environment definitions and validation, while the loader
+module provides environment variable loading.
+
+Runtime-specific APIs should be used only when available in the target environment.
+
+Design Principles
+-----------------
+
+The project follows a simple and focused design philosophy:
+
+* Simplicity: Keep the implementation straightforward.
+* Portability: Support modern JavaScript runtimes.
+* Interoperability: Avoid unnecessary dependence on specific validation libraries.
+* Type safety: Preserve TypeScript inference.
+* Minimalism: Avoid unnecessary dependencies and runtime work.
+* Extensibility: Allow applications to choose compatible tools.
+
+Complexity should be introduced only when it provides a clear, practical benefit.
+
+Support the Project
+===================
+
+Support the development and maintenance of open-source software.
+Patreon: https://patreon.com/baginskisoftware
+
+Follow Our Work
+---------------
+
+Follow our work and project updates.
+
+Instagram: https://www.instagram.com/baginskisoftware/
+YouTube: https://www.youtube.com/@baginskisoftware/

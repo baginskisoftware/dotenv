@@ -1,0 +1,39 @@
+{
+  "rootdir": "lib",
+  "outdir": "dist",
+  "target": "node",
+  "minify": true,
+  "sourcemap": "none",
+  "splitting": false,
+  "packages": "bundle",
+  "clean": true,
+  "formats": {
+    "esm": {
+      "enabled": true,
+      "directory": "esm",
+      "extension": ".js"
+    },
+    "cjs": {
+      "enabled": true,
+      "directory": "cjs",
+      "extension": ".cjs"
+    }
+  },
+  "entries": [
+    {
+      "name": "core",
+      "entrypoint": "core/index.ts",
+      "default": true
+    },
+    {
+      "name": "loader",
+      "entrypoint": "loader/index.ts"
+    }
+  ],
+  "declarations": {
+    "enabled": true,
+    "tsconfig": "./tsconfig.build.json",
+    "directory": "types",
+    "extension": ".d.ts"
+  }
+}
