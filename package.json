@@ -70,9 +70,10 @@
     "typecheck": "tsc --noEmit",
     "fix": "biome check --write .",
     "knip": "knip",
+    "clean": "rm -Rf dist",
     "build": "NODE_ENV=production bun run scripts/release.ts",
     "build:dev": "bun run scripts/release.ts",
-    "release": "bun run check && bun run build",
+    "release": "bun run clean && bun run check && bun run build",
     "prepublishOnly": "bun run release",
     "publish:dry": "bunx npm publish --dry-run"
   },
