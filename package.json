@@ -2,7 +2,7 @@
   "name": "@baginskisoftware/dotenv",
   "description": "Type-safe environment variable validation for JavaScript runtimes.",
   "homepage": "https://github.com/baginskisoftware/dotenv",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "BSD-3-Clause",
   "author": {
     "email": "baginskicosta@gmail.com",
